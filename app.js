@@ -6,7 +6,6 @@ const App = {
     data() {
         return {
             activeIndex: 0, // то, что позволяет определить текущий активный шаг,
-            stepRefs: [],
             isFinished: true,
             steps: [
                 {
@@ -32,18 +31,7 @@ const App = {
             ]
         }
     },
-    mounted() {
-        this.setActive(this.activeIndex)
-    },
-    beforeUpdate() {
-        this.stepRefs = []
-    },
     methods: {
-        setStepRef(el) {
-            if (el) {
-                this.stepRefs.push(el)
-            }
-        },
         prev() {
             this.setActive(this.activeIndex - 1)
         },
@@ -59,14 +47,6 @@ const App = {
         },
         setActive(idx) {
             this.activeIndex = idx
-            this.stepRefs.forEach((step, index) => {
-                step.classList.remove('active')
-                step.classList.remove('done')
-                if (index < this.activeIndex) {
-                    step.classList.add('done')
-                }
-            })
-            this.stepRefs[this.activeIndex].classList.add('active')
         }
     },
     computed: {
